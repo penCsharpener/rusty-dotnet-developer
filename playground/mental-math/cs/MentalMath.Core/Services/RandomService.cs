@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using MentalMath.Core.Abstractions;
+using MentalMath.Core.Extensions;
 using MentalMath.Core.Models.Enums;
 
 namespace MentalMath.Core.Services;
@@ -15,7 +16,15 @@ public sealed class RandomService : IRandomService
 
     public MathOperation GetMathOperation()
     {
-        return (MathOperation) RandomNumberGenerator.GetInt32(1, 5);
+        var availableOptions = new Dictionary<int, MathOperation>();
+        var options = _optionsService.Options.MathOperations.ToArray();
+
+        for (var i = 1; i <= options.Length; i++)
+        {
+            availableOptions.Add(i, options[i - 1]);
+        }
+
+        return availableOptions[RandomNumberGenerator.GetInt32(1, options.Length + 1)];
     }
 
     public int GetRandomNumber()

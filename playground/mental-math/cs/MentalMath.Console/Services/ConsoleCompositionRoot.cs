@@ -1,5 +1,6 @@
 ﻿using MentalMath.Core.Abstractions;
 using MentalMath.Core.Models;
+using MentalMath.Core.Models.Enums;
 using static System.Console;
 
 namespace MentalMath.Console.Services;
@@ -46,6 +47,17 @@ public class ConsoleCompositionRoot
 
         WriteLine();
         WriteLine($"Playing for {timespan}");
+
+        WriteLine("Which math operations do you want? Type the numbers (134, 12, 4). Default is all of them.");
+        WriteLine($"1 {MathOperation.Addition}");
+        WriteLine($"2 {MathOperation.Substraction}");
+        WriteLine($"3 {MathOperation.Multiplication}");
+        WriteLine($"4 {MathOperation.Division}");
+        WriteLine();
+
+        var operations = ReadLine()?.ToCharArray().Select(c => int.Parse(c.ToString())).Sum();
+
+        _optionsService.Options.MathOperations = operations is null or 0 ? MathOperation.Addition | MathOperation.Substraction | MathOperation.Multiplication | MathOperation.Division : (MathOperation) operations.Value;
 
         WriteLine("How large should the highest available number be? (20: 9+11, 4*5, 20-11=9, 20/5=4");
         int.TryParse(ReadLine(), out var highestNumber);
