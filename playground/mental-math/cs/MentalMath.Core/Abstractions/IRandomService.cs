@@ -6,4 +6,5 @@ public interface IRandomService
 {
     MathOperation GetMathOperation();
     int GetRandomNumber();
+    int GetRandomNumberSquared();
 }

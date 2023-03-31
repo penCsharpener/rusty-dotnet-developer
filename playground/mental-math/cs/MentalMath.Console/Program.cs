@@ -15,7 +15,8 @@ public class Program
             .AddScoped<IMathProblemValidator, MathProblemValidator>()
             .AddScoped<IRandomService, RandomService>()
             .AddScoped<IOptionsService, OptionsService>()
-            .AddScoped<ConsoleCompositionRoot>();
+            .AddScoped<ConsoleCompositionRoot>()
+            .AddLogging();
 
         var provider = services.BuildServiceProvider();
         var app = provider.GetRequiredService<ConsoleCompositionRoot>();

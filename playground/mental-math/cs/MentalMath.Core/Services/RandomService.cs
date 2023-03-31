@@ -22,4 +22,9 @@ public sealed class RandomService : IRandomService
     {
         return RandomNumberGenerator.GetInt32(1, _optionsService.Options.HighestAvailableNumber);
     }
+
+    public int GetRandomNumberSquared()
+    {
+        return RandomNumberGenerator.GetInt32(1, (int) Math.Sqrt(_optionsService.Options.HighestAvailableNumber));
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using MentalMath.Core.Abstractions;
 using MentalMath.Core.Models;
-using MentalMath.Core.Models.Enums;
 using static System.Console;
 
 namespace MentalMath.Console.Services;
@@ -72,10 +71,8 @@ public class ConsoleCompositionRoot
         {
             var mathProblem = _mentalMathService.GetNewMathProblem();
 
-            var @operator = GetOperator(mathProblem);
-
             WriteLine();
-            WriteLine($"{mathProblem.NumberOne} {@operator} {mathProblem.NumberTwo} = ___ ?");
+            WriteLine($"{mathProblem.NumberOne} {mathProblem.MathOperationSymbol} {mathProblem.NumberTwo} = ___ ?");
             var userAnswer = new Answer(mathProblem);
 
             int.TryParse(ReadLine(), out var answer);
@@ -95,17 +92,5 @@ public class ConsoleCompositionRoot
 
         WriteLine();
         WriteLine($"Time is up! Congratulations! You have solved {_userAnswers.Count(a => a.IsCorrect)} of {_userAnswers.Count} correctly.");
-    }
-
-    private char GetOperator(MathProblem mathProblem)
-    {
-        return mathProblem.MathOperation switch
-        {
-            MathOperation.Addition => '+',
-            MathOperation.Division => '/',
-            MathOperation.Multiplication => '*',
-            MathOperation.Substraction => '-',
-            _ => ' '
-        };
     }
 }
